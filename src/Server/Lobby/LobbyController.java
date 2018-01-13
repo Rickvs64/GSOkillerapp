@@ -72,7 +72,7 @@ public class LobbyController {
 
     private void startServer(){
         try {
-            lobby = new ActiveLobby(txt_lobbyname.getText(),"127.0.0.1");
+            lobby = new ActiveLobby(txt_lobbyname.getText(),"localhost");
 
             // Create this lobby on port 1099.
             Registry registry = LocateRegistry.createRegistry(1099);

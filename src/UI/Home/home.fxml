@@ -9,8 +9,9 @@
    <children>
       <Label fx:id="lbl_username" layoutX="46.0" layoutY="46.0" text="TEMP_TEXT" />
       <Label layoutX="46.0" layoutY="25.0" text="Logged in as:" />
-      <TextField fx:id="txt_lobbyName" layoutX="355.0" layoutY="195.0" />
+      <TextField fx:id="txt_lobbyName" layoutX="355.0" layoutY="195.0" prefHeight="25.0" prefWidth="187.0" />
       <Label fx:id="lbl_lobbyName" layoutX="355.0" layoutY="167.0" text="Lobby name:" />
       <Button fx:id="btn_joinLobby" layoutX="355.0" layoutY="230.0" mnemonicParsing="false" onAction="#joinLobby" prefHeight="31.0" prefWidth="187.0" text="Join" />
+      <Button fx:id="btn_sendBoop" layoutX="355.0" layoutY="314.0" mnemonicParsing="false" onAction="#sendBoop" prefHeight="64.0" prefWidth="187.0" text="Boop!" />
    </children>
 </AnchorPane>
