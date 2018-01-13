@@ -10,6 +10,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
 public class LobbyController {
     private Player player1;
     private Player player2;
@@ -64,7 +67,22 @@ public class LobbyController {
         btn_lobbynameSubmit.setVisible(false);
         lbl_status.setText("Waiting for players.");
 
-        lobby = new ActiveLobby(txt_lobbyname.getText(),"127.0.0.1");
+        startServer();
+    }
+
+    private void startServer(){
+        try {
+            lobby = new ActiveLobby(txt_lobbyname.getText(),"127.0.0.1");
+
+            // Create this lobby on port 1099.
+            Registry registry = LocateRegistry.createRegistry(1099);
+
+            // Create a new service using the lobby's name.
+            registry.rebind(txt_lobbyname.getText(), lobby); // The lobby name is used for registry lookup.
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("My body is ready.");
     }
 
     @FXML
