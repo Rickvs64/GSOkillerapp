@@ -1,5 +1,6 @@
 package Server.Lobby;
 
+import Classes.ActiveLobby;
 import Classes.ILobby;
 import Classes.Player;
 import javafx.application.Platform;
@@ -49,6 +50,7 @@ public class LobbyController {
         Platform.runLater(new Runnable() {
             @Override public void run() {
                 btn_start.setVisible(false);
+                lbl_status.setText("Input a lobby name.");
             }
         });
     }
@@ -56,7 +58,13 @@ public class LobbyController {
 
     @FXML
     public void LobbyNameSubmit(ActionEvent actionEvent) {
-        System.out.println("Hoi");
+        lbl_lobbyname.setText(txt_lobbyname.getText());
+        lbl_lobbynameInput.setVisible(false);
+        txt_lobbyname.setVisible(false);
+        btn_lobbynameSubmit.setVisible(false);
+        lbl_status.setText("Waiting for players.");
+
+        lobby = new ActiveLobby(txt_lobbyname.getText(),"127.0.0.1");
     }
 
     @FXML
