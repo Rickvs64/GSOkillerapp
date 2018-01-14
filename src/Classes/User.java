@@ -1,15 +1,15 @@
 package Classes;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-public class User {
+public class User implements IUser{
     Integer id;
     String username;
 
+    @Override
     public String getUsername() {
         return username;
     }
 
+    @Override
     public void setUsername(String username) {
         this.username = username;
     }

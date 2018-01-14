@@ -1,12 +1,14 @@
 package Classes;
 
-public class Player {
+public class Player implements IUser {
     Integer user_id;
 
+    @Override
     public String getUsername() {
         return username;
     }
 
+    @Override
     public void setUsername(String username) {
         this.username = username;
     }
