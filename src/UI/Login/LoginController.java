@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 public class LoginController {
 
     private IUserRepo userRepo = new SQLUserRepo();
@@ -41,11 +43,13 @@ public class LoginController {
         User user = new User(txt_username.getText(), txt_password.getText());
         Boolean loginResult = userRepo.attemptLogin(user);
         if (loginResult == true) {
+            showMessageDialog(null, "Logged in!");
             toHomeScreen(user);
         }
         else
         {
-            System.out.println("Wrong user credentials, mate.");
+            showMessageDialog(null, "Wrong user credentials!");
+            System.out.println("Wrong user credentials!");
         }
 
     }
