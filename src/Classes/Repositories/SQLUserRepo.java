@@ -31,11 +31,10 @@ public class SQLUserRepo implements IUserRepo {
 
     @Override
     public Boolean addUser(User newUser) {
-        try {
+        try (Statement statement = connection.createStatement()) {
             String encrypted = CryptWithMD5.cryptWithMD5(newUser.getPassword());
             newUser.setPassword(encrypted);
 
-            Statement statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO table_users (name_user, pass_user) VALUES ('" + newUser.getUsername() + "', '" + newUser.getPassword() + "')");
             return true;
         }
@@ -43,6 +42,9 @@ public class SQLUserRepo implements IUserRepo {
             // Fuck it.
             System.out.println("Something broke, try again later.");
             return false;
+        }
+        finally {
+
         }
     }
 
@@ -53,11 +55,10 @@ public class SQLUserRepo implements IUserRepo {
 
     @Override
     public Boolean attemptLogin(User user){
-        try {
+        try (Statement statement = connection.createStatement()){
             String encrypted = CryptWithMD5.cryptWithMD5(user.getPassword());
             user.setPassword(encrypted);
 
-            Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery("SELECT * FROM table_users WHERE name_user = '" + user.getUsername() + "' AND pass_user='" + user.getPassword() + "';");
 
             if (!result.next()) {   // If next() returns false there are no matches
@@ -77,8 +78,7 @@ public class SQLUserRepo implements IUserRepo {
 
     @Override
     public Boolean checkUsernameExists(String username) {
-        try {
-            Statement statement = connection.createStatement();
+        try (Statement statement = connection.createStatement()) {
             ResultSet result = statement.executeQuery("SELECT name_user FROM table_users WHERE name_user = '" + username + "';");
 
             if (!result.next()) {   // If next() returns false there are no matches
