@@ -38,7 +38,9 @@ public class User {
         return new Player(id, username);
     }
 
-    public Double calculateWinrate() {
-        throw new NotImplementedException();
+    public Double calculateWinrate(Integer matchesWon, Integer totalMatches) {
+        double a = (double) matchesWon;
+        double b = (double) totalMatches;
+        return (a / b);
     }
 }
