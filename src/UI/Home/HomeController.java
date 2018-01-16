@@ -58,8 +58,10 @@ public class HomeController {
 
     private void connectToLobby(String lobbyName){
         try {
+            System.setProperty("java.rmi.server.hostname","127.0.0.1");
+
             // Get registry from port 1099.
-            Registry myRegistry = LocateRegistry.getRegistry("localhost", 1099);
+            Registry myRegistry = LocateRegistry.getRegistry("127.0.0.1", 1099);
 
             // Try to obtain an active lobby service from the user given lobby name.
             lobby = (ILobby) myRegistry.lookup(lobbyName);

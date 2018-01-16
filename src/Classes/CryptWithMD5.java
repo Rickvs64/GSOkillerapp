@@ -5,9 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * With help from Adrian Stamin (StackOverflow)
- */
+
 public class CryptWithMD5 {
     private static MessageDigest md;
 

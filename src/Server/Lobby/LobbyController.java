@@ -1,6 +1,7 @@
 package Server.Lobby;
 
 import Classes.ActiveLobby;
+import Classes.IBoopListener;
 import Classes.ILobby;
 import Classes.Player;
 import javafx.application.Platform;
@@ -10,10 +11,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
-public class LobbyController {
+public class LobbyController extends UnicastRemoteObject implements IBoopListener {
     private Player player1;
     private Player player2;
     private ILobby lobby;
@@ -44,7 +48,7 @@ public class LobbyController {
     private Button btn_start;
 
 
-    public LobbyController() {
+    public LobbyController() throws RemoteException {
         // Initialize the UI.
         initUI();
     }
@@ -72,7 +76,8 @@ public class LobbyController {
 
     private void startServer(){
         try {
-            lobby = new ActiveLobby(txt_lobbyname.getText(),"localhost");
+            lobby = new ActiveLobby(txt_lobbyname.getText(),"127.0.0.1");
+            lobby.setListener(this);
 
             // Create this lobby on port 1099.
             Registry registry = LocateRegistry.createRegistry(1099);
@@ -87,5 +92,10 @@ public class LobbyController {
 
     @FXML
     public void StartGame(ActionEvent actionEvent) {
+    }
+
+    @Override
+    public void notifyBoop(String sender) throws RemoteException {
+        System.out.println(sender + " sent me a notify.");
     }
 }
