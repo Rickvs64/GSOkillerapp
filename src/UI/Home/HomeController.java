@@ -2,6 +2,7 @@ package UI.Home;
 
 import Classes.ILobby;
 import Classes.Player;
+import Classes.Status;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,8 @@ import javafx.scene.control.TextField;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.concurrent.ThreadLocalRandom;
+
+import static javax.swing.JOptionPane.showMessageDialog;
 
 public class HomeController {
     private Player player;
@@ -66,16 +69,24 @@ public class HomeController {
             // Try to obtain an active lobby service from the user given lobby name.
             lobby = (ILobby) myRegistry.lookup(lobbyName);
 
-            // Call the boop method to check connection.
-            lobby.boop(player.getUsername());
+            if (lobby.getStatus() == Status.lookingForPlayers) {
+                // Call the boop method to check connection.
+                lobby.boop(player.getUsername());
 
-            System.out.println("Message Sent");
-            btn_sendBoop.setVisible(true);
-            txt_lobbyName.setVisible(false);
-            lbl_lobbyName.setVisible(false);
-            btn_joinLobby.setVisible(false);
+                System.out.println("Message Sent");
+                btn_sendBoop.setVisible(true);
+                txt_lobbyName.setVisible(false);
+                lbl_lobbyName.setVisible(false);
+                btn_joinLobby.setVisible(false);
+            }
+            else {
+                // It's full/in progress.
+                System.out.println("This lobby is full.");
+                showMessageDialog(null, "This lobby is full.");
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("This lobby couldn't be found. Connectivity issues?");
+            showMessageDialog(null, "This lobby couldn't be found. Connectivity issues?");
         }
     }
 

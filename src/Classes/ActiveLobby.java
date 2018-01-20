@@ -18,18 +18,28 @@ public class ActiveLobby extends UnicastRemoteObject implements ILobby {
     }
 
     @Override
+    public Status getStatus() throws RemoteException {
+        return status;
+    }
+
+    @Override
+    public void setStatus(Status newStatus) throws RemoteException {
+        status = newStatus;
+    }
+
+    @Override
     public void setListener(IBoopListener listener) throws RemoteException {
         this.listener = listener;
     }
 
     @Override
     public void boop(String playername) throws RemoteException {
-        System.out.println(playername + " sent a simple command.");
+        // System.out.println(playername + " sent a simple command.");
         listener.notifyBoop(playername);
 
-//        // Notify all listeners.
-//        for (IBoopListener listener : listeners) {
-//            listener.notifyBoop(playername);
-//        }
+        // Notify all listeners.
+        // for (IBoopListener listener : listeners) {
+            // listener.notifyBoop(playername);
+        // }
     }
 }
