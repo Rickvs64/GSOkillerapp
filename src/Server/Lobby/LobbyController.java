@@ -182,7 +182,13 @@ public class LobbyController extends UnicastRemoteObject implements IBoopListene
 
     private void readyForStart() throws RemoteException {
         btn_start.setVisible(true);
-        lbl_status.setText("Ready to start.");
+
+        Platform.runLater(new Runnable() {
+            @Override public void run() {
+                lbl_status.setText("Ready to start.");
+            }
+        });
+
         lobby.setStatus(Status.readyToStart);
     }
 }
